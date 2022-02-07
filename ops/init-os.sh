@@ -21,6 +21,9 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 # VERSION_ID=$(cat /usr/lib/os-release  | grep VERSION_ID |  grep -Eo '[0-9]+\.[0-9]+')
 # fi
 
+## Install common tools with root, iwhile sudo is not found. 
+su root 
+zypper update && zypper install -y sudo vim 
 # Add user to particular group
 USERNAME=$(whoami)
 sudo usermod -a -G sudo $USERNAME
@@ -67,7 +70,7 @@ sudo echo "default 192.168.1.1 - eth0" >  /etc/sysconfig/network/ifroute-eth0
 sudo chmod -w /etc/sysconfig/network/ifroute-eth0
 exit
 ## Add dns search list
-sudo sed -i 's/NETCONFIG_DNS_STATIC_SERVERS="/ETCONFIG_DNS_STATIC_SERVERS="114.114.114.114 8.8.8.8 192.168.1.1"/g' /etc/sysconfig/network/config
+sudo sed -i 's/NETCONFIG_DNS_STATIC_SERVERS=""/NETCONFIG_DNS_STATIC_SERVERS="114.114.114.114 8.8.8.8 192.168.1.1"/g' /etc/sysconfig/network/config
 ## Restart network
 sudo systemctl restart wickedd.service
 sudo wicked ifup eth0
@@ -111,9 +114,7 @@ sudo zypper in -y podman buildah skopeo && podman --version
 # reboot
 
 ## Update registries
-sudo vim /etc/containers/registries.conf
-[registries.search]
-registries = ["nvcr.io", "docker.io"]
+sudo sed -i 's/registry.opensuse.org/nvcr.io/' /etc/containers/registries.conf
 ## if a container starts a particular application, the container exits as soon as the application quits. 
 ## podman start -ai <container name>
 ## loginctl list-sessions | grep $USER
@@ -133,5 +134,4 @@ sudo firewall-cmd --list-ports
 sudo firewall-cmd --list-services --permanent 
 ## reboot
 ## loginctl kill-session SESSION_ID
-
 # =============================================================================================================================
