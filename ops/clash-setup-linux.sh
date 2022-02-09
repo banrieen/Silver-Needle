@@ -67,6 +67,9 @@ case $CONFIG_CASE in
      ip6)
 	   wget --no-check-certificate https://cdn.jsdelivr.net/gh/Alvin9999/pac2@latest/clash/3/config.yaml
 	   ;;
+     *)
+          wget --no-check-certificate https://gitlab.com/free9999/ipupdate/-/raw/master/clash/config.yaml -O config.yaml
+           ;;     
 esac
 screen -dmS ClasshProxy-${CLASHVERSION}-${TIMESTAMP} ./${APP_NAME} -d .
 # Retarch session
