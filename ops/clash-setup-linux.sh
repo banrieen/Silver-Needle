@@ -93,8 +93,10 @@ for i in {0..10000..10} 10000;do i=0$i
     percentBar $p $((COLUMNS-9)) bar
     printf '\r|%s|%6.2f%%' "$bar" $p
     read -srt .002 _ && break    # console sleep avoiding fork
-done    
-		    
+done   
+# Https connection test 
+curl --write-out '%{time_namelookup}' --output /dev/null --proxy "http://127.0.0.1:7890"   "https://www.google.com/finance/"
+## curl --parallel -w "@curl-format.txt" -o /dev/null --proxy "http://127.0.0.1:7890"  -s "http://wordpress.com/" "http://baidu.com/" "http://google.com/"		    
 echo """
  ==================================================>> Clash proxy is Running...
   The HTTP/S proxy is: 127.0.0.1:7890
