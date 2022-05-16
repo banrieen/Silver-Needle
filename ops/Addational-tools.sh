@@ -9,6 +9,11 @@
 # Support Platform Version: MachineDevil v0.6.0
 #=========================================================================================================================
 
+# Bash execute process status bar
+## https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+## https://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script
+## https://ownyourbits.com/2017/07/16/a-progress-bar-for-the-shell/
+
 # Online installation
 #-------------------------------------------------------------------------------------------------------------------------
 workspace=$HOME
@@ -73,10 +78,18 @@ sudo systemctl start frps
 sudo systemctl enable frps
 ### sudo systemctl status frps
 
-# Discourse
+# Discoursepython
 ### https://github.com/discourse/discourse.git
 curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-discourse/master/docker-compose.yml > docker-compose.yml
 docker-compose up -d
+
+## python env
+
+sudo zypper install -y "python>=3.7"
+sudo rm /usr/bin/python3
+sudo ln -s /usr/bin/python3.9 /usr/bin/python3
+curl -O https://bootstrap.pypa.io/get-pip.py
+python3 ./get-pip.py
 
 
 # Offline installation (Debin/Ubuntu)
@@ -93,3 +106,11 @@ sudo dpkg -i *
 # aptitude --download-only install <your_package_here>
 # cp /var/cache/apt/archives/*.deb <your_directory_here>
 
+# Linux 系统管理工具
+sudo zypper addrepo https://download.opensuse.org/repositories/home:Dead_Mozay:cockpit/openSUSE_Tumbleweed/home:Dead_Mozay:cockpit.repo
+sudo zypper refresh
+sudo zypper install cockpit
+
+# pytorch 环境
+## Use podman volume: data2vec
+sudo podman run -it -d --rm -v data2vec:/data nvcr.io/nvidia/pytorch:21.11-py3 bash
