@@ -29,13 +29,58 @@ sudo zypper dup --from packman --allow-vendor-chang
 sudo zypper in obs-studio
 
 # Install frps 
-wget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_linux_amd64.tar.gz
-tar zxf frp_0.38.0_linux_amd64.tar.gz
+wget https://github.com/fatedier/frp/releases/download/v0.42.0/frp_0.42.0_linux_amd64.tar.gz
+tar zxf frp_0.42.0_linux_amd64.tar.gz
 cp frps /usr/local/bin/frps
-mkdir /etc/frp
+sudo mkdir /etc/frp
 cp frps.ini /etc/frp/frps.ini
 
+## Server configuration
+sudo chmod 775 -R /etc/frp/
+cat > /etc/frp/frps.ini << EOF
+[common]
+bind_port = 7000
+dashboard_port = 7500
+token = Aiops@2025
+dashboard_user = admin
+dashboard_pwd = Aiops@2025
+vhost_http_port = 10080
+vhost_https_port = 10443
+allow_ports = 20000-40000,6022,7022,7080,30692,30184,32109,8088,8090,8080,9090,9091
+EOF
+sudo chmod 555 -R /etc/frp/
+
+## Server systemctl setup
+sudo cat > /etc/systemd/system/frps.service << EOF
+[Unit]
+Description=frps
+Wants=network-online.target
+After=network.target
+
+[Service]
+type=simple
+#TimeoutStartSec=30
+#RemainAfterExit=yes
+ExecStart=/usr/local/bin/frps -c /etc/frp/frps.ini
+ExecStop=/bin/kill -2 $MAINPID
+Restart=on-failure
+RestartSec=30s
+KillMode=none
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+
+## 启动 frps 并设置开机启动
+sudo systemctl stop frps
+sudo systemctl disable frps
+sudo systemctl start frps
+sudo systemctl enable frps
+### sudo systemctl status frps
+
 ## client configuration
+sudo chmod 775 -R /etc/frp/
 cat > /etc/frp/frpc.ini << EOF
 [common]
 server_addr =  122.51.195.199
@@ -52,31 +97,39 @@ local_ip = 127.0.0.1
 local_port = 445
 remote_port = 7002
 EOF
+sudo chmod 555 -R /etc/frp/
 
-## systemctl service
-sudo cat > /etc/systemd/system/frps.service << EOF
-# 内容如下
-[Unit]
-Description=frps
-After=network.target
+## client systemctl setup
+ cat > /etc/systemd/system/frpc.service << EOF
+  [Unit]
+  Description=frpc
+  Wants=network-online.target
+  After=network.target
 
-[Service]
-TimeoutStartSec=30
-ExecStart=/usr/local/bin/frps -c /etc/frp/frps.ini
-ExecStop=/bin/kill $MAINPID
-Restart=on-failure
-RestartSec=30s
-KillMode=none
+  [Service]
+  type=simple
+  #RemainAfterExit=yes
+  TimeoutStartSec=120
+  ExecStart=/usr/local/bin/frpc -c /etc/frp/frpc.ini
+  ExecReload=/usr/local/bin/frpc reload -c /etc/frp/frpc.ini
+  ExecStop=/bin/kill -2 $MAINPID
+  Restart=on-failure
+  RestartSec=30s
+  KillMode=none
 
-[Install]
-WantedBy=multi-user.target
+  [Install]
+  WantedBy=multi-user.target
+~
 EOF
-## 启动 frp 并设置开机启动
-sudo systemctl stop frps
-sudo systemctl disable frps
-sudo systemctl start frps
-sudo systemctl enable frps
-### sudo systemctl status frps
+
+## 启动 frpc 并设置开机启动
+sudo systemctl stop frpc
+sudo systemctl disable frpc
+sudo systemctl start frpc
+sudo systemctl enable frpc
+
+## Start with screen in WLS 
+sudo screen -dmS frpc /usr/local/bin/frpc -c /etc/frp/frpc.ini &
 
 # Discoursepython
 ### https://github.com/discourse/discourse.git
