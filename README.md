@@ -11,17 +11,16 @@
 
 [English Doc](README.md) | [简体中文](README_zh_CN.md)
 
-Base on apulis/MachineWolf!
+A sample and AI supply test and generate tool.
 
-**MachineDevil** is a Test Grounds for AI 、Deep Learning or Machine Learning framwork、platform. As the Best-Practice for build Application.
+**cuckoo** aim is a Test Grounds for AI 、Deep Learning or Machine Learning framwork、platform. As the Best-Practice for test application.
 
 **Suport Env**
-* Ubuntu 18.04 x86-64
+* Debian12 x86-64
 * Python
 * java(jmeter)
 * node.js/deno
 * Rust
-* Go
 * Git
 
 **[Support Tools](https://github.com/ml-tooling/ml-workspace#features)**

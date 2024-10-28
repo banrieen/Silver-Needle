@@ -16,7 +16,7 @@
 [English Doc](README.md) | [简体中文](README_zh_CN.md)
 
 
-**MachineDevil** 是AI、DL/ML框架、平台、应用的远程开发、调试、测试环境。可作为构建应用程序的最佳Xdevops实践。
+**杜鹃鸟** 目标是AI、DL/ML框架、平台、应用的远程开发、调试、测试环境。可作为构建应用程序的最佳Xdevops实践。
 
 一个可以随时启用，远端协作的研发环境！
 
