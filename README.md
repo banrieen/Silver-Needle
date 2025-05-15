@@ -13,7 +13,7 @@
 
 A sample and AI supply test and generate tool.
 
-**cuckoo** aim is a Test Grounds for AI 、Deep Learning or Machine Learning framwork、platform. As the Best-Practice for test application.
+**Silver Needle** aim is a Test Grounds for AI 、Deep Learning or Machine Learning framwork、platform. As the Best-Practice for test application.
 
 **Suport Env**
 * Debian12 x86-64

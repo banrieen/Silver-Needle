@@ -16,21 +16,18 @@
 [English Doc](README.md) | [简体中文](README_zh_CN.md)
 
 
-**杜鹃鸟** 目标是AI、DL/ML框架、平台、应用的远程开发、调试、测试环境。可作为构建应用程序的最佳Xdevops实践。
+**银针** 目标是AI、DL/ML框架、平台、应用的远程开发、调试、测试环境。可作为构建应用程序的最佳Xdevops实践。
 
-一个可以随时启用，远端协作的研发环境！
+Silver Needle
 
-🍃 🍂 🍁 🍄 🐚 🍀 🌾 💐 🌷🦥 🐁 🐀 🐿 🦔 🐾 🐉
-**😄 一键三连，点个 Star , 手留余香，不胜感激！🍻
-🌼 🌻 🌞 🌝 🌛🌈 ☀️ 🌤 ⛅️ 🌥🌏 🪐 💫 ⭐️ 🌟 ✨ 
+使用 AI 生成测试用例（导入需求描述，功能界面，使用说明），测试数据，开发自动化测试脚本
+
+
 
 **支持环境**
-* Ubuntu 18.04 x86-64
+* Debian
 * Python
-* java(jmeter)
-* node.js/deno
 * Rust
-* Go
 * Git
 
 **[支持工具](https://github.com/ml-tooling/ml-workspace#features)**

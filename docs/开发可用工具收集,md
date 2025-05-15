@@ -1,0 +1,26 @@
+## AI 集成
+微软官方工具，提供实时交互式检测和自动化测试双模式，支持 FastPass（快速扫描）和 Assessment（深度评估）。https://accessibilityinsights.io/
+
+前端性能评审：Lighthouse 
+https://developer.chrome.google.cn/docs/devtools/lighthouse?hl=zh-cn
+
+
+## 可访问性测试
+axe-core-python 集成 Axe-core 引擎：将可访问性检测直接嵌入 Python 测试流程，支持 W3C WCAG 2.1/2.2 标准。
+
+Pytest-A11y 作为 Pytest 插件，将可访问性测试纳入单元测试流程。
+
+Lighthouse CI
+
+    集成方案：
+
+        Python 封装：使用 pylighthouse 库生成包含可访问性评分的报告。
+
+        趋势分析：对比历史数据，追踪可访问性改进效果。
+
+需求场景	推荐工具	核心优势
+深度可访问性合规检测	axe-core-python	精准匹配 WCAG 标准，与 Selenium 深度集成
+非技术团队协作测试	Robot Framework	自然语言语法，降低使用门槛
+高性能批量页面解析	PyQuery	类 jQuery 语法，处理大规模数据效率高
+CI/CD 集成	Pytest-A11y	无缝接入现有测试流程，阈值控制灵活
+多维度质量报告	Lighthouse CI	包含性能、SEO 等多维度指标可视化
