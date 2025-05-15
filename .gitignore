@@ -91,3 +91,5 @@ datasets/test_results
 test_hub/tmp
 
 .ruff_cache
+
+uv.lock

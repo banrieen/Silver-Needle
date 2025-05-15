@@ -13,6 +13,7 @@ dependencies = [
     "playwright>=1.52.0",
     "prefect>=3.4.1",
     "pytest>=8.3.5",
+    "pytest-html>=4.1.1",
     "pytest-playwright>=0.7.0",
     "sanic>=25.3.0",
     "streamlit>=1.45.0",
